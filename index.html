@@ -116,12 +116,6 @@
     @keyframes anim-twinkle{ 0%,100% { opacity: .15; } 50% { opacity: 1; } }
     @keyframes anim-drip   { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: 1; } 68% { transform: translateY(46px); opacity: 1; } 80%,100% { transform: translateY(46px); opacity: 0; } }
     @keyframes anim-run    { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateX(var(--d, 150px)); opacity: 0; } }
-    @keyframes anim-carry  { 0% { transform: translateX(0) scaleX(1); opacity: 0; }
-                             6% { opacity: 1; }
-                             34%,44% { transform: translateX(150px) scaleX(1); opacity: 1; }
-                             46% { transform: translateX(150px) scaleX(-1); opacity: 1; }
-                             74% { transform: translateX(0) scaleX(-1); opacity: 1; }
-                             82%,100% { transform: translateX(0) scaleX(-1); opacity: 0; } }
     @keyframes anim-spin   { to { transform: rotate(360deg); } }
     @keyframes anim-show   { 0% { opacity: 0; transform: scale(.4); } 8%,82% { opacity: 1; transform: scale(1); } 92%,100% { opacity: 0; transform: scale(1); } }
     @keyframes anim-sprout { 0% { transform: scaleY(0); } 40%,85% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
@@ -129,13 +123,11 @@
     @keyframes anim-fall   { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 75% { transform: translateY(var(--fy, 40px)); opacity: 1; } 100% { transform: translateY(var(--fy, 40px)); opacity: 0; } }
     @keyframes anim-fill   { 0% { transform: scaleY(0); opacity: 1; } 45%,85% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
     @keyframes anim-growx  { 0% { transform: scaleX(0); opacity: 1; } 45%,85% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
-    @keyframes anim-dip    { 0%,100% { transform: translateY(0); } 35%,65% { transform: translateY(var(--d, 20px)); } }
     @keyframes anim-sway   { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-8px); } }
     @keyframes anim-wiggle { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
     @keyframes anim-brush  { 0% { transform: translateX(0); } 45%,55% { transform: translateX(var(--d, 50px)); } 100% { transform: translateX(0); } }
     @keyframes anim-mist   { 0% { transform: translate(0,0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(var(--mx, 30px), var(--my, 20px)); opacity: 0; } }
     @keyframes anim-rise   { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-24px); opacity: 0; } }
-    @keyframes anim-push   { 0%,100% { transform: translateY(-7px); } 40%,70% { transform: translateY(0); } }
     @keyframes anim-spread { 0%,35% { transform: scale(0); opacity: 0; } 45% { opacity: 1; } 80% { transform: scale(1); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
 
     .anim-bob     { animation: anim-bob 3.2s ease-in-out infinite; }
@@ -144,18 +136,15 @@
     .anim-twinkle { animation: anim-twinkle 1.6s ease-in-out infinite; }
     .anim-drip    { animation: anim-drip 3s ease-in infinite; }
     .anim-run     { animation: anim-run 7s linear infinite; }
-    .anim-carry   { animation: anim-carry 9s ease-in-out infinite; }
     .anim-spin    { animation: anim-spin 26s linear infinite; }
     .anim-show    { animation: anim-show 8s ease-out infinite both; }
     .anim-dig     { animation: anim-dig 6s ease-in-out infinite; }
     .anim-fall    { animation: anim-fall 2.4s ease-in infinite both; }
-    .anim-dip     { animation: anim-dip 4s ease-in-out infinite; }
     .anim-sway    { animation: anim-sway 3s ease-in-out infinite; }
     .anim-wiggle  { animation: anim-wiggle 1.4s ease-in-out infinite; }
     .anim-brush   { animation: anim-brush 4s ease-in-out infinite; }
     .anim-mist    { animation: anim-mist 1.4s ease-out infinite both; }
     .anim-rise    { animation: anim-rise 2s ease-out infinite both; }
-    .anim-push    { animation: anim-push 3s ease-in-out infinite; }
     .anim-spread  { animation: anim-spread 3s ease-out infinite both; }
     svg .anim-sprout  { transform-origin: center bottom; animation: anim-sprout 6s ease-out infinite; }
     svg .anim-fillup  { transform-origin: center bottom; animation: anim-fill 4s ease-in-out infinite; }
@@ -164,6 +153,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       svg * { animation: none !important; }
+      /* sin movimiento, cada figura muestra un solo estado coherente (el final de su historia) */
+      .anim-m1-month.alt, .anim-m3-day, .anim-m4-lid, .anim-m7-r1, .anim-m7-r2 { opacity: 0; }
+      .anim-m3-night { opacity: .72; }
+      .anim-m2-plaga { opacity: .08; }
     }
 
     /* Tarjetas de especie / grupo */
@@ -308,20 +301,139 @@
     /* animaciones adicionales */
     @keyframes anim-flutter { 0%,100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-6px) rotate(6deg); } }
     @keyframes anim-step    { 0% { opacity: 0; } 5%,26% { opacity: 1; } 32%,100% { opacity: 0; } }
-    @keyframes anim-gauge   { 0%,15% { transform: rotate(-70deg); } 70%,100% { transform: rotate(62deg); } }
-    @keyframes anim-fadeout { 0%,25% { opacity: 1; } 55%,100% { opacity: .12; } }
-    @keyframes anim-hop     { 0%,100% { transform: translate(0,0); } 30% { transform: translate(var(--hx, 30px), -34px); } 60% { transform: translate(var(--hx2, 60px), 0); } 60.01% { transform: translate(0,0); } }
     @keyframes anim-ring    { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
-    @keyframes anim-nightday{ 0%,45% { opacity: 0; } 55%,95% { opacity: 1; } 100% { opacity: 0; } }
     @keyframes anim-shake   { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-2px); } 40%,80% { transform: translateX(2px); } }
     .anim-flutter  { animation: anim-flutter 1.1s ease-in-out infinite; }
     .anim-step     { animation: anim-step 8s linear infinite both; }
-    .anim-fadeout  { animation: anim-fadeout 7s ease-in-out infinite; }
-    .anim-hop      { animation: anim-hop 2.2s ease-in-out infinite; }
     .anim-ring     { animation: anim-ring 1.8s ease-out infinite; }
-    .anim-nightday { animation: anim-nightday 8s ease-in-out infinite; }
     .anim-shake    { animation: anim-shake 2.6s ease-in-out infinite; }
-    svg .anim-gauge   { transform-origin: var(--ox, 50%) var(--oy, 50%); animation: anim-gauge 7s ease-in-out infinite alternate; }
+
+    /* ── Secuencias por módulo: cada figura cuenta una historia en un ciclo de 8 a 12 s ── */
+    /* M1: el calendario cambia de mes en cada ciclo de 8 s */
+    @keyframes anim-m1-month { 0%,33.2% { opacity: 1; } 33.4%,100% { opacity: 0; } }
+    .anim-m1-month { animation: anim-m1-month 24s linear infinite both; }
+
+    /* M2: las columnas se tachan una a una y quedan tachadas; sin las tres, el bloque se hunde */
+    @keyframes anim-m2-x1 { 0%,20% { opacity: 0; transform: scale(1.6); } 24%,91% { opacity: 1; transform: scale(1); } 95%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m2-x2 { 0%,38% { opacity: 0; transform: scale(1.6); } 42%,91% { opacity: 1; transform: scale(1); } 95%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m2-x3 { 0%,56% { opacity: 0; transform: scale(1.6); } 60%,91% { opacity: 1; transform: scale(1); } 95%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m2-dim1 { 0%,22% { opacity: 1; } 26%,92% { opacity: .35; } 97%,100% { opacity: 1; } }
+    @keyframes anim-m2-dim2 { 0%,40% { opacity: 1; } 44%,92% { opacity: .35; } 97%,100% { opacity: 1; } }
+    @keyframes anim-m2-dim3 { 0%,58% { opacity: 1; } 62%,92% { opacity: .35; } 97%,100% { opacity: 1; } }
+    @keyframes anim-m2-plaga { 0%,61% { opacity: 1; transform: translateY(0); } 70%,90% { opacity: .08; transform: translateY(12px); } 96%,100% { opacity: 1; transform: translateY(0); } }
+    @keyframes anim-m2-ok { 0%,68% { opacity: 0; transform: scale(.6); } 74%,90% { opacity: 1; transform: scale(1); } 94%,100% { opacity: 0; transform: scale(1); } }
+    .anim-m2-x1 { animation: anim-m2-x1 10s ease-out infinite both; }
+    .anim-m2-x2 { animation: anim-m2-x2 10s ease-out infinite both; }
+    .anim-m2-x3 { animation: anim-m2-x3 10s ease-out infinite both; }
+    .anim-m2-dim1 { animation: anim-m2-dim1 10s ease-out infinite both; }
+    .anim-m2-dim2 { animation: anim-m2-dim2 10s ease-out infinite both; }
+    .anim-m2-dim3 { animation: anim-m2-dim3 10s ease-out infinite both; }
+    .anim-m2-plaga { animation: anim-m2-plaga 10s ease-in-out infinite both; }
+    .anim-m2-ok { animation: anim-m2-ok 10s ease-out infinite both; }
+
+    /* M3: la cocina pasa de día a noche; de noche salen; las crías van naciendo */
+    @keyframes anim-m3-night { 0%,42% { opacity: 0; } 50%,88% { opacity: .72; } 96%,100% { opacity: 0; } }
+    @keyframes anim-m3-day { 0%,42% { opacity: 1; } 50%,88% { opacity: 0; } 96%,100% { opacity: 1; } }
+    @keyframes anim-m3-nightlbl { 0%,44% { opacity: 0; } 50%,88% { opacity: 1; } 94%,100% { opacity: 0; } }
+    @keyframes anim-m3-run { 0%,50% { opacity: 0; transform: translateX(0); } 54% { opacity: 1; } 82% { opacity: 1; transform: translateX(44px); } 86%,100% { opacity: 0; transform: translateX(44px); } }
+    @keyframes anim-m3-pop1 { 0%,55% { opacity: 0; transform: scale(.4); } 59%,84% { opacity: 1; transform: scale(1); } 88%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m3-pop2 { 0%,61% { opacity: 0; transform: scale(.4); } 65%,84% { opacity: 1; transform: scale(1); } 88%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m3-baby1 { 0%,18% { opacity: 0; transform: scale(.4); } 22%,90% { opacity: 1; transform: scale(1); } 95%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m3-baby2 { 0%,34% { opacity: 0; transform: scale(.4); } 38%,90% { opacity: 1; transform: scale(1); } 95%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m3-baby3 { 0%,50% { opacity: 0; transform: scale(.4); } 54%,90% { opacity: 1; transform: scale(1); } 95%,100% { opacity: 0; transform: scale(1); } }
+    .anim-m3-night { animation: anim-m3-night 10s ease-in-out infinite both; }
+    .anim-m3-day { animation: anim-m3-day 10s ease-in-out infinite both; }
+    .anim-m3-nightlbl { animation: anim-m3-nightlbl 10s ease-in-out infinite both; }
+    .anim-m3-run { animation: anim-m3-run 10s linear infinite both; }
+    .anim-m3-pop1 { animation: anim-m3-pop1 10s ease-out infinite both; }
+    .anim-m3-pop2 { animation: anim-m3-pop2 10s ease-out infinite both; }
+    .anim-m3-baby1 { animation: anim-m3-baby1 10s ease-out infinite both; }
+    .anim-m3-baby2 { animation: anim-m3-baby2 10s ease-out infinite both; }
+    .anim-m3-baby3 { animation: anim-m3-baby3 10s ease-out infinite both; }
+
+    /* M4: los recipientes empiezan destapados y la tapa baja después; las larvas aparecen y suben a respirar */
+    @keyframes anim-m4-lid { 0%,55% { transform: translateY(-34px); opacity: 0; } 62%,94% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-34px); opacity: 0; } }
+    @keyframes anim-m4-larva { 0%,28% { opacity: 0; transform: translateY(0); } 33% { opacity: 1; transform: translateY(0); } 41% { transform: translateY(-16px); } 49% { transform: translateY(0); } 57% { opacity: 1; transform: translateY(-16px); } 64%,100% { opacity: 0; transform: translateY(0); } }
+    .anim-m4-lid { animation: anim-m4-lid 10s ease-in-out infinite both; }
+    .anim-m4-larva { animation: anim-m4-larva 10s ease-in-out infinite both; }
+
+    /* M5: las señales aparecen en orden y se quedan */
+    @keyframes anim-m5-s1 { 0%,14% { opacity: 0; transform: scale(.6); } 18%,92% { opacity: 1; transform: scale(1); } 97%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m5-s2 { 0%,34% { opacity: 0; transform: scale(.6); } 38%,92% { opacity: 1; transform: scale(1); } 97%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m5-s3 { 0%,54% { opacity: 0; transform: scale(.6); } 58%,92% { opacity: 1; transform: scale(1); } 97%,100% { opacity: 0; transform: scale(1); } }
+    .anim-m5-s1 { animation: anim-m5-s1 10s ease-out infinite both; }
+    .anim-m5-s2 { animation: anim-m5-s2 10s ease-out infinite both; }
+    .anim-m5-s3 { animation: anim-m5-s3 10s ease-out infinite both; }
+
+    /* M6: la pulga salta del lomo a la alfombra; la chinche sale y vuelve a la costura; el túnel sube y la viga queda hueca */
+    @keyframes anim-m6-hop {
+      0% { opacity: 0; transform: translate(0,0); }
+      4%,12% { opacity: 1; transform: translate(0,0); animation-timing-function: ease-out; }
+      24% { transform: translate(28px,-38px); animation-timing-function: ease-in; }
+      38%,62% { opacity: 1; transform: translate(54px,44px); }
+      70%,100% { opacity: 0; transform: translate(54px,44px); }
+    }
+    @keyframes anim-m6-egg1 { 0%,44% { opacity: 0; transform: scale(.4); } 48%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m6-egg2 { 0%,54% { opacity: 0; transform: scale(.4); } 58%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m6-egg3 { 0%,64% { opacity: 0; transform: scale(.4); } 68%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m6-bug { 0%,8% { opacity: 0; transform: translateX(0) scale(.5); } 16% { opacity: 1; transform: translateX(0) scale(1); } 56% { transform: translateX(36px) scale(1); } 76% { opacity: 1; transform: translateX(36px) scale(1); } 84%,100% { opacity: 0; transform: translateX(36px) scale(1); } }
+    @keyframes anim-m6-spot1 { 0%,28% { opacity: 0; } 32%,92% { opacity: 1; } 96%,100% { opacity: 0; } }
+    @keyframes anim-m6-spot2 { 0%,42% { opacity: 0; } 46%,92% { opacity: 1; } 96%,100% { opacity: 0; } }
+    @keyframes anim-m6-spot3 { 0%,56% { opacity: 0; } 60%,92% { opacity: 1; } 96%,100% { opacity: 0; } }
+    @keyframes anim-m6-wood { 0%,46% { opacity: 0; } 50%,88% { opacity: 1; } 94%,100% { opacity: 0; } }
+    @keyframes anim-m6-wings { 0%,18% { opacity: 0; transform: scale(.6); } 22%,88% { opacity: 1; transform: scale(1); } 94%,100% { opacity: 0; transform: scale(1); } }
+    .anim-m6-hop { animation: anim-m6-hop 10s linear infinite both; }
+    .anim-m6-egg1 { animation: anim-m6-egg1 10s ease-out infinite both; }
+    .anim-m6-egg2 { animation: anim-m6-egg2 10s ease-out infinite both; }
+    .anim-m6-egg3 { animation: anim-m6-egg3 10s ease-out infinite both; }
+    .anim-m6-bug { animation: anim-m6-bug 10s ease-in-out infinite both; }
+    .anim-m6-spot1 { animation: anim-m6-spot1 10s linear infinite both; }
+    .anim-m6-spot2 { animation: anim-m6-spot2 10s linear infinite both; }
+    .anim-m6-spot3 { animation: anim-m6-spot3 10s linear infinite both; }
+    .anim-m6-wood { animation: anim-m6-wood 10s ease-out infinite both; }
+    .anim-m6-wings { animation: anim-m6-wings 10s ease-out infinite both; }
+
+    /* M7: los puntos quedan marcados al revisarlos; los hallazgos suben el nivel de riesgo */
+    @keyframes anim-m7-p1 { 0% { opacity: 0; } 3%,96% { opacity: 1; } 99%,100% { opacity: 0; } }
+    @keyframes anim-m7-p2 { 0%,14% { opacity: 0; } 17%,96% { opacity: 1; } 99%,100% { opacity: 0; } }
+    @keyframes anim-m7-p3 { 0%,32% { opacity: 0; } 35%,96% { opacity: 1; } 99%,100% { opacity: 0; } }
+    @keyframes anim-m7-p4 { 0%,52% { opacity: 0; } 55%,96% { opacity: 1; } 99%,100% { opacity: 0; } }
+    @keyframes anim-m7-p5 { 0%,70% { opacity: 0; } 73%,96% { opacity: 1; } 99%,100% { opacity: 0; } }
+    @keyframes anim-m7-p6 { 0%,84% { opacity: 0; } 87%,96% { opacity: 1; } 99%,100% { opacity: 0; } }
+    @keyframes anim-m7-f1 { 0%,16% { opacity: 0; transform: scale(.4); } 19%,96% { opacity: 1; transform: scale(1); } 99%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m7-f2 { 0%,54% { opacity: 0; transform: scale(.4); } 57%,96% { opacity: 1; transform: scale(1); } 99%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m7-r1 { 0%,18% { opacity: 1; } 19%,96% { opacity: 0; } 98%,100% { opacity: 1; } }
+    @keyframes anim-m7-r2 { 0%,18% { opacity: 0; } 19%,56% { opacity: 1; } 57%,100% { opacity: 0; } }
+    @keyframes anim-m7-r3 { 0%,56% { opacity: 0; } 57%,96% { opacity: 1; } 98%,100% { opacity: 0; } }
+    .anim-m7-p1 { animation: anim-m7-p1 10s linear infinite both; }
+    .anim-m7-p2 { animation: anim-m7-p2 10s linear infinite both; }
+    .anim-m7-p3 { animation: anim-m7-p3 10s linear infinite both; }
+    .anim-m7-p4 { animation: anim-m7-p4 10s linear infinite both; }
+    .anim-m7-p5 { animation: anim-m7-p5 10s linear infinite both; }
+    .anim-m7-p6 { animation: anim-m7-p6 10s linear infinite both; }
+    .anim-m7-f1 { animation: anim-m7-f1 10s ease-out infinite both; }
+    .anim-m7-f2 { animation: anim-m7-f2 10s ease-out infinite both; }
+    .anim-m7-r1 { animation: anim-m7-r1 10s linear infinite both; }
+    .anim-m7-r2 { animation: anim-m7-r2 10s linear infinite both; }
+    .anim-m7-r3 { animation: anim-m7-r3 10s linear infinite both; }
+
+    /* M8: el EPP se pone pieza por pieza y se queda puesto */
+    @keyframes anim-m8-e1 { 0%,8% { opacity: 0; transform: scale(.6); } 12%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m8-e2 { 0%,28% { opacity: 0; transform: scale(.6); } 32%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m8-e3 { 0%,48% { opacity: 0; transform: scale(.6); } 52%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    @keyframes anim-m8-e4 { 0%,68% { opacity: 0; transform: scale(.6); } 72%,92% { opacity: 1; transform: scale(1); } 96%,100% { opacity: 0; transform: scale(1); } }
+    .anim-m8-e1 { animation: anim-m8-e1 10s ease-out infinite both; }
+    .anim-m8-e2 { animation: anim-m8-e2 10s ease-out infinite both; }
+    .anim-m8-e3 { animation: anim-m8-e3 10s ease-out infinite both; }
+    .anim-m8-e4 { animation: anim-m8-e4 10s ease-out infinite both; }
+
+    /* M9: los engranajes dan una vuelta completa, frenan y se detienen juntos; luego arrancan de nuevo */
+    @keyframes anim-m9-spin { 0% { transform: rotate(0deg); animation-timing-function: linear; } 58% { transform: rotate(340deg); animation-timing-function: ease-out; } 66%,100% { transform: rotate(360deg); } }
+    @keyframes anim-m9-rev  { 0% { transform: rotate(0deg); animation-timing-function: linear; } 58% { transform: rotate(-340deg); animation-timing-function: ease-out; } 66%,100% { transform: rotate(-360deg); } }
+    @keyframes anim-m9-stop { 0%,66% { opacity: 0; transform: scale(.5); } 70%,96% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1); } }
+    .anim-m9-spin { animation: anim-m9-spin 12s linear infinite; }
+    .anim-m9-rev  { animation: anim-m9-rev 12s linear infinite; }
+    .anim-m9-stop { animation: anim-m9-stop 12s ease-out infinite both; }
   </style>
 </head>
 <body>
@@ -430,28 +542,50 @@
         <h2>¿Qué es el control integrado de plagas?</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fig1t">
-            <title id="fig1t">A la izquierda, solo se fumiga y la cucaracha vuelve una y otra vez. A la derecha, una rueda de cinco pasos: prevenir, identificar, inspeccionar, intervenir y evaluar.</title>
+            <title id="fig1t">A la izquierda, solo se fumiga: la cucaracha muere, pero al mes siguiente entra otra por la grieta y el problema se repite. A la derecha, una rueda de cinco pasos que se encienden en orden: prevenir, identificar, inspeccionar, intervenir y evaluar.</title>
 
-            <!-- SOLO FUMIGAR -->
+            <!-- SOLO FUMIGAR (ciclo de 8 s = un mes) -->
             <rect x="6" y="8" width="160" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="86" y="30" text-anchor="middle" style="fill:#c0392b">SOLO FUMIGAR</text>
             <text class="f-sub" x="86" y="44" text-anchor="middle">la plaga vuelve</text>
-            <!-- aspersor -->
+            <!-- calendario: cambia de mes en cada ciclo -->
             <g>
-              <rect x="30" y="96" width="34" height="56" rx="8" fill="#2a7a48"/>
-              <rect x="40" y="86" width="14" height="12" rx="3" fill="#1a5632"/>
-              <path d="M64 108 H84" stroke="#1a5632" stroke-width="4" stroke-linecap="round"/>
-              <g fill="#9fd3e8">
-                <circle cx="92" cy="108" r="3" class="anim-mist" style="--mx:30px;--my:-6px"/>
-                <circle cx="92" cy="110" r="2.4" class="anim-mist" style="--mx:34px;--my:4px;animation-delay:.4s"/>
-                <circle cx="92" cy="106" r="2" class="anim-mist" style="--mx:28px;--my:12px;animation-delay:.8s"/>
-              </g>
+              <rect x="112" y="56" width="42" height="34" rx="4" fill="#fff" stroke="#cfc6b6"/>
+              <path d="M112 66 H154" stroke="#cfc6b6"/>
+              <rect x="112" y="56" width="42" height="10" rx="4" fill="#c0392b"/><rect x="112" y="62" width="42" height="4" fill="#c0392b"/>
+              <text class="f-sub anim-m1-month" x="133" y="83" text-anchor="middle" style="font-weight:700;fill:#2f3b33">mes 1</text>
+              <text class="f-sub anim-m1-month alt" x="133" y="83" text-anchor="middle" style="font-weight:700;fill:#2f3b33;animation-delay:-16s">mes 2</text>
+              <text class="f-sub anim-m1-month alt" x="133" y="83" text-anchor="middle" style="font-weight:700;fill:#2f3b33;animation-delay:-8s">mes 3</text>
             </g>
-            <!-- cucaracha que se va y vuelve -->
-            <path d="M20 200 H150" stroke="#e2eae4" stroke-width="2"/>
-            <use href="#ic-roach" x="104" y="186" width="34" height="18" style="color:#6b3a1e" class="anim-fadeout" />
-            <use href="#ic-roach" x="104" y="186" width="34" height="18" style="color:#6b3a1e;animation-delay:3.5s" class="anim-fadeout"/>
-            <path d="M60 174 C90 160 120 160 140 174" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 5" class="anim-flow"/>
+            <!-- aspersor con lanza apuntando al piso -->
+            <rect x="28" y="110" width="34" height="58" rx="8" fill="#2a7a48"/>
+            <rect x="38" y="100" width="14" height="12" rx="3" fill="#1a5632"/>
+            <path d="M62 124 H78 L90 148" fill="none" stroke="#1a5632" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- rocío: sale de la lanza y llega a la cucaracha -->
+            <g fill="#9fd3e8">
+              <circle r="3">
+                <animateMotion path="M92 150 L112 188" dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.22;.36;1"/>
+                <animate attributeName="opacity" values="0;1;0" keyTimes="0;.22;.36" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+              </circle>
+              <circle r="2.4" cx="4" cy="-3">
+                <animateMotion path="M92 150 L112 188" dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.25;.39;1"/>
+                <animate attributeName="opacity" values="0;1;0" keyTimes="0;.25;.39" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+              </circle>
+              <circle r="2" cx="-3" cy="3">
+                <animateMotion path="M92 150 L112 188" dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.28;.41;1"/>
+                <animate attributeName="opacity" values="0;1;0" keyTimes="0;.28;.41" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+              </circle>
+            </g>
+            <!-- piso y grieta por donde entra la siguiente -->
+            <path d="M20 204 H160" stroke="#e2eae4" stroke-width="2"/>
+            <path d="M166 172 L156 182 L161 192 L152 204 H166 Z" fill="#2f3b33"/>
+            <text class="f-sub" x="148" y="170" text-anchor="end" style="fill:#2f3b33">grieta</text>
+            <!-- cucaracha: muere con el rocío y al rato entra otra por la grieta -->
+            <g>
+              <animateMotion path="M158 194 L114 194" dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="1;1;0;0;1;1" keyTimes="0;.40;.42;.575;.80;1"/>
+              <animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;.36;.41;.57;.575;1" dur="8s" repeatCount="indefinite"/>
+              <g transform="scale(-1,1)"><use href="#ic-roach" x="-17" y="-9" width="34" height="18" style="color:#6b3a1e"/></g>
+            </g>
             <text class="f-sub" x="86" y="226" text-anchor="middle" style="fill:#c0392b;font-weight:700">mismo problema, cada mes</text>
 
             <!-- CONTROL INTEGRADO -->
@@ -460,7 +594,7 @@
             <text class="f-sub" x="285" y="44" text-anchor="middle">se ataca la causa</text>
             <circle cx="285" cy="140" r="62" fill="none" stroke="#e2eae4" stroke-width="8"/>
             <circle cx="285" cy="140" r="62" fill="none" stroke="#1a5632" stroke-width="3" stroke-dasharray="6 9" stroke-linecap="round" class="anim-flow" style="animation-duration:3s"/>
-            <!-- 5 nodos -->
+            <!-- 5 nodos que se encienden en orden -->
             <g>
               <circle cx="285" cy="78" r="14" fill="#1a5632"/><circle cx="285" cy="78" r="14" fill="#f0a500" class="anim-step"/><text class="f-num" x="285" y="82" text-anchor="middle">1</text>
               <text class="f-sub" x="285" y="62" text-anchor="middle" style="font-weight:700;fill:#2f3b33">Prevenir</text>
@@ -479,7 +613,7 @@
             </g>
             <g>
               <circle cx="226" cy="121" r="14" fill="#1a5632"/><circle cx="226" cy="121" r="14" fill="#f0a500" class="anim-step" style="animation-delay:6.4s"/><text class="f-num" x="226" y="125" text-anchor="middle">5</text>
-              <text class="f-sub" x="210" y="108" text-anchor="middle" style="font-weight:700;fill:#2f3b33">Evaluar</text>
+              <text class="f-sub" x="212" y="104" text-anchor="middle" style="font-weight:700;fill:#2f3b33">Evaluar</text>
             </g>
             <text class="f-title" x="285" y="136" text-anchor="middle" style="font-size:10px">SIN ALIMENTO,</text>
             <text class="f-title" x="285" y="149" text-anchor="middle" style="font-size:10px">AGUA NI REFUGIO</text>
@@ -516,49 +650,53 @@
         <h2>Alimento, agua y refugio</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 240" role="img" aria-labelledby="fig2t">
-            <title id="fig2t">Tres columnas, alimento, agua y refugio, sostienen un bloque con la palabra plaga. Cuando las columnas se tachan una a una, la plaga se desvanece.</title>
+            <title id="fig2t">Tres columnas, alimento, agua y refugio, sostienen un bloque con la frase la plaga se queda. Se tachan una a una y, cuando no queda ninguna, el bloque se hunde y aparece la frase sin plaga.</title>
             <rect x="0" y="206" width="400" height="34" fill="#efe9dc"/>
             <path d="M0 206 H400" stroke="#d9d1bf" stroke-width="1.5"/>
 
-            <!-- bloque PLAGA -->
-            <g class="anim-fadeout" style="animation-duration:9s">
+            <!-- bloque PLAGA: se hunde cuando pierde las tres columnas -->
+            <g class="anim-m2-plaga">
               <rect x="60" y="30" width="280" height="54" rx="10" fill="#c0392b"/>
               <text x="200" y="56" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" letter-spacing="2">LA PLAGA SE QUEDA</text>
               <text x="200" y="74" text-anchor="middle" font-size="10" fill="#fde8e6">mientras tenga las tres cosas</text>
               <use href="#ic-roach" x="66" y="10" width="34" height="18" style="color:#6b3a1e"/>
               <use href="#ic-rat" x="298" y="6" width="40" height="22" style="color:#5b5b5b"/>
             </g>
+            <g class="anim-m2-ok">
+              <rect x="110" y="36" width="180" height="42" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+              <text x="200" y="63" text-anchor="middle" font-size="16" font-weight="800" fill="#1b5e20" letter-spacing="1">✓ SIN PLAGA</text>
+            </g>
 
-            <!-- columnas -->
+            <!-- columnas: se tachan una a una y se quedan tachadas -->
             <g>
-              <rect x="80" y="84" width="52" height="122" rx="6" fill="#fff" stroke="#e6ece7"/>
-              <text x="106" y="124" text-anchor="middle" font-size="26">🍞</text>
-              <text class="f-label" x="106" y="156" text-anchor="middle">Alimento</text>
-              <text class="f-sub" x="106" y="172" text-anchor="middle">restos, basura,</text>
-              <text class="f-sub" x="106" y="185" text-anchor="middle">comida destapada</text>
-              <g class="anim-step" style="animation-duration:9s;animation-delay:2.5s">
-                <path d="M84 90 L128 200 M128 90 L84 200" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+              <g class="anim-m2-dim1">
+                <rect x="80" y="84" width="52" height="122" rx="6" fill="#fff" stroke="#e6ece7"/>
+                <text x="106" y="124" text-anchor="middle" font-size="26">🍞</text>
+                <text class="f-label" x="106" y="156" text-anchor="middle">Alimento</text>
+                <text class="f-sub" x="106" y="172" text-anchor="middle">restos, basura,</text>
+                <text class="f-sub" x="106" y="185" text-anchor="middle">comida destapada</text>
               </g>
+              <path d="M86 92 L126 198 M126 92 L86 198" stroke="#c0392b" stroke-width="5" stroke-linecap="round" class="anim-m2-x1"/>
             </g>
             <g>
-              <rect x="174" y="84" width="52" height="122" rx="6" fill="#fff" stroke="#e6ece7"/>
-              <text x="200" y="124" text-anchor="middle" font-size="26">💧</text>
-              <text class="f-label" x="200" y="156" text-anchor="middle">Agua</text>
-              <text class="f-sub" x="200" y="172" text-anchor="middle">fugas, humedad,</text>
-              <text class="f-sub" x="200" y="185" text-anchor="middle">agua estancada</text>
-              <g class="anim-step" style="animation-duration:9s;animation-delay:4s">
-                <path d="M178 90 L222 200 M222 90 L178 200" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+              <g class="anim-m2-dim2">
+                <rect x="174" y="84" width="52" height="122" rx="6" fill="#fff" stroke="#e6ece7"/>
+                <text x="200" y="124" text-anchor="middle" font-size="26">💧</text>
+                <text class="f-label" x="200" y="156" text-anchor="middle">Agua</text>
+                <text class="f-sub" x="200" y="172" text-anchor="middle">fugas, humedad,</text>
+                <text class="f-sub" x="200" y="185" text-anchor="middle">agua estancada</text>
               </g>
+              <path d="M180 92 L220 198 M220 92 L180 198" stroke="#c0392b" stroke-width="5" stroke-linecap="round" class="anim-m2-x2"/>
             </g>
             <g>
-              <rect x="268" y="84" width="52" height="122" rx="6" fill="#fff" stroke="#e6ece7"/>
-              <text x="294" y="124" text-anchor="middle" font-size="26">🧱</text>
-              <text class="f-label" x="294" y="156" text-anchor="middle">Refugio</text>
-              <text class="f-sub" x="294" y="172" text-anchor="middle">grietas, cajas,</text>
-              <text class="f-sub" x="294" y="185" text-anchor="middle">desorden, maleza</text>
-              <g class="anim-step" style="animation-duration:9s;animation-delay:5.5s">
-                <path d="M272 90 L316 200 M316 90 L272 200" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+              <g class="anim-m2-dim3">
+                <rect x="268" y="84" width="52" height="122" rx="6" fill="#fff" stroke="#e6ece7"/>
+                <text x="294" y="124" text-anchor="middle" font-size="26">🧱</text>
+                <text class="f-label" x="294" y="156" text-anchor="middle">Refugio</text>
+                <text class="f-sub" x="294" y="172" text-anchor="middle">grietas, cajas,</text>
+                <text class="f-sub" x="294" y="185" text-anchor="middle">desorden, maleza</text>
               </g>
+              <path d="M274 92 L314 198 M314 92 L274 198" stroke="#c0392b" stroke-width="5" stroke-linecap="round" class="anim-m2-x3"/>
             </g>
             <text class="f-sub" x="200" y="228" text-anchor="middle" style="fill:#1a5632;font-weight:700">Quita las tres y la plaga no tiene de qué vivir</text>
           </svg>
@@ -598,66 +736,104 @@
         <h2>Cucarachas y hormigas</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fig3t">
-            <title id="fig3t">Izquierda: una cocina de noche donde salen cucarachas detrás de la estufa, y la cápsula de huevos de la que nacen crías. Derecha: un camino de hormigas que va del nido afuera hasta el azúcar; una hormiga lleva el cebo de vuelta al nido.</title>
+            <title id="fig3t">Izquierda: una cocina que pasa de día a noche; de noche salen cucarachas detrás de la estufa, y de una cápsula de huevos van naciendo crías. Derecha: un camino de hormigas que sale del nido, cruza la pared por una grieta y llega a la comida; una hormiga recoge el cebo y lo lleva de vuelta al nido.</title>
 
-            <!-- CUCARACHAS -->
+            <!-- CUCARACHAS (ciclo 10 s) -->
             <rect x="6" y="8" width="188" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="100" y="28" text-anchor="middle">CUCARACHAS</text>
             <text class="f-sub" x="100" y="42" text-anchor="middle">salen de noche, se esconden de día</text>
             <!-- cocina -->
             <rect x="18" y="56" width="164" height="120" rx="6" fill="#f6f1e8"/>
-            <rect x="18" y="56" width="164" height="120" rx="6" fill="#1a2a3a" class="anim-nightday" style="opacity:.75"/>
             <rect x="30" y="120" width="60" height="56" fill="#cfc6b6"/>
             <rect x="34" y="112" width="52" height="10" rx="2" fill="#8a968d"/>
             <circle cx="48" cy="117" r="3" fill="#2f3b33"/><circle cx="72" cy="117" r="3" fill="#2f3b33"/>
             <rect x="110" y="130" width="60" height="46" fill="#dbe9f0" stroke="#b8c9d2"/>
             <path d="M118 130 V176" stroke="#b8c9d2"/>
-            <!-- cucarachas que salen de noche -->
-            <g class="anim-nightday">
-              <use href="#ic-roach" x="86" y="160" width="30" height="16" style="color:#8a4a22;--d:40px" class="anim-run"/>
-              <use href="#ic-roach" x="92" y="140" width="24" height="13" style="color:#8a4a22;animation-delay:1s" class="anim-show"/>
-              <use href="#ic-roach" x="40" y="100" width="26" height="14" style="color:#8a4a22;animation-delay:2s" class="anim-show"/>
+            <!-- noche: la cocina se oscurece pero se sigue viendo -->
+            <rect x="18" y="56" width="164" height="120" rx="6" fill="#1a2a3a" class="anim-m3-night"/>
+            <g class="anim-m3-day">
+              <text x="156" y="78" font-size="14">☀️</text>
+              <text class="f-sub" x="26" y="72" style="fill:#2f3b33;font-weight:700">de día: nada a la vista</text>
             </g>
-            <text x="166" y="76" font-size="14" class="anim-nightday">🌙</text>
-            <!-- ooteca -->
+            <g class="anim-m3-nightlbl">
+              <text x="158" y="78" font-size="14">🌙</text>
+              <text class="f-sub" x="26" y="72" style="fill:#fff;font-weight:700">de noche: salen</text>
+            </g>
+            <!-- cucarachas que salen de noche -->
+            <use href="#ic-roach" x="86" y="160" width="30" height="16" style="color:#8a4a22" class="anim-m3-run"/>
+            <use href="#ic-roach" x="92" y="140" width="24" height="13" style="color:#8a4a22" class="anim-m3-pop1"/>
+            <use href="#ic-roach" x="40" y="98" width="26" height="14" style="color:#8a4a22" class="anim-m3-pop2"/>
+            <!-- ooteca y crías que van naciendo -->
             <rect x="26" y="190" width="30" height="16" rx="7" fill="#7a4a22"/>
             <path d="M31 190 V206 M37 190 V206 M43 190 V206 M49 190 V206" stroke="#000" stroke-opacity=".2"/>
             <text class="f-sub" x="62" y="198">cápsula con</text>
             <text class="f-sub" x="62" y="210">muchos huevos</text>
-            <g>
-              <use href="#ic-roach" x="138" y="192" width="14" height="8" style="color:#b07a4a" class="anim-show"/>
-              <use href="#ic-roach" x="154" y="196" width="14" height="8" style="color:#b07a4a;animation-delay:1.3s" class="anim-show"/>
-              <use href="#ic-roach" x="170" y="192" width="14" height="8" style="color:#b07a4a;animation-delay:2.6s" class="anim-show"/>
-            </g>
+            <use href="#ic-roach" x="138" y="192" width="14" height="8" style="color:#b07a4a" class="anim-m3-baby1"/>
+            <use href="#ic-roach" x="154" y="196" width="14" height="8" style="color:#b07a4a" class="anim-m3-baby2"/>
+            <use href="#ic-roach" x="170" y="192" width="14" height="8" style="color:#b07a4a" class="anim-m3-baby3"/>
             <text class="f-sub" x="160" y="216" text-anchor="middle">→ crías</text>
             <text class="f-sub" x="100" y="234" text-anchor="middle" style="fill:#c0392b;font-weight:700">calor + humedad + restos de comida</text>
 
-            <!-- HORMIGAS -->
+            <!-- HORMIGAS (ciclo 10 s) -->
             <rect x="206" y="8" width="188" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="300" y="28" text-anchor="middle">HORMIGAS</text>
             <text class="f-sub" x="300" y="42" text-anchor="middle">el nido está afuera</text>
-            <!-- pared y afuera -->
-            <path d="M262 56 V176" stroke="#cfc6b6" stroke-width="6"/>
+            <!-- pared con grieta, afuera (pasto y nido) y adentro (comida) -->
+            <path d="M262 56 V118 M262 134 V176" stroke="#cfc6b6" stroke-width="6"/>
+            <path d="M259 118 L265 126 L259 134" fill="none" stroke="#8a7a66" stroke-width="1.5" stroke-linejoin="round"/>
+            <text class="f-sub" x="268" y="112">grieta</text>
             <rect x="214" y="150" width="40" height="26" fill="#9bbf7a"/>
             <ellipse cx="234" cy="150" rx="18" ry="10" fill="#b08a5a"/>
             <circle cx="234" cy="150" r="4" fill="#5a3a1e"/>
             <text class="f-sub" x="234" y="190" text-anchor="middle">nido</text>
-            <!-- azúcar -->
             <rect x="340" y="140" width="40" height="36" rx="4" fill="#f6f1e8" stroke="#cfc6b6"/>
             <text x="360" y="166" text-anchor="middle" font-size="18">🍬</text>
             <text class="f-sub" x="360" y="190" text-anchor="middle">comida</text>
-            <!-- camino -->
-            <path d="M238 150 C250 120 290 110 340 150" fill="none" stroke="#2f3b33" stroke-width="2" stroke-dasharray="3 6" stroke-linecap="round" class="anim-flow"/>
-            <use href="#ic-ant" x="256" y="118" width="18" height="10" style="color:#2f3b33;--d:60px" class="anim-run" />
-            <use href="#ic-ant" x="276" y="112" width="18" height="10" style="color:#2f3b33;--d:50px;animation-delay:2s" class="anim-run"/>
-            <!-- cebo que se llevan al nido -->
-            <g class="anim-carry" style="animation-duration:8s">
-              <use href="#ic-ant" x="246" y="126" width="22" height="12" style="color:#2f3b33"/>
-              <circle cx="272" cy="130" r="4" fill="#f0a500"/>
+            <!-- camino de hormigas -->
+            <path d="M234 150 C244 134 254 126 262 126 C290 126 324 132 342 158" fill="none" stroke="#2f3b33" stroke-width="2" stroke-dasharray="3 6" stroke-linecap="round" class="anim-flow"/>
+            <!-- cebo puesto sobre el camino -->
+            <g>
+              <animate attributeName="opacity" values="1;0" keyTimes="0;.44" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <circle cx="314" cy="133" r="4.5" fill="#f0a500" stroke="#c98900"/>
+            </g>
+            <text class="f-sub" x="314" y="122" text-anchor="middle" style="fill:#8a6400;font-weight:700">cebo</text>
+            <!-- obreras de ida y vuelta -->
+            <g>
+              <animateMotion path="M234 150 C244 134 254 126 262 126 C290 126 324 132 342 158" dur="10s" repeatCount="indefinite" rotate="auto"/>
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.06;.94;1" dur="10s" repeatCount="indefinite"/>
+              <use href="#ic-ant" x="-9" y="-5" width="18" height="10" style="color:#2f3b33"/>
+            </g>
+            <g>
+              <animateMotion path="M234 150 C244 134 254 126 262 126 C290 126 324 132 342 158" dur="10s" begin="-4s" repeatCount="indefinite" rotate="auto"/>
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.06;.94;1" dur="10s" begin="-4s" repeatCount="indefinite"/>
+              <use href="#ic-ant" x="-9" y="-5" width="18" height="10" style="color:#2f3b33"/>
+            </g>
+            <g>
+              <animateMotion path="M342 158 C324 132 290 126 262 126 C254 126 244 134 234 150" dur="10s" begin="-7s" repeatCount="indefinite" rotate="auto-reverse"/>
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.06;.94;1" dur="10s" begin="-7s" repeatCount="indefinite"/>
+              <g transform="scale(-1,1)"><use href="#ic-ant" x="-9" y="-5" width="18" height="10" style="color:#2f3b33"/></g>
+            </g>
+            <!-- la que recoge el cebo: va hasta el cebo... -->
+            <g>
+              <animateMotion path="M234 150 C244 134 254 126 262 126 C278.8 126 297.8 128.2 314.1 135.5" dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;.42;1" rotate="auto"/>
+              <animate attributeName="opacity" values="1;0" keyTimes="0;.48" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <use href="#ic-ant" x="-11" y="-6" width="22" height="12" style="color:#2f3b33"/>
+            </g>
+            <!-- ...y lo lleva al nido -->
+            <g>
+              <animateMotion path="M314.1 135.5 C297.8 128.2 278.8 126 262 126 C254 126 244 134 234 150" dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.48;.92;1" rotate="auto-reverse"/>
+              <animate attributeName="opacity" values="0;1;0" keyTimes="0;.48;.92" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <g transform="scale(-1,1)"><use href="#ic-ant" x="-11" y="-6" width="22" height="12" style="color:#2f3b33"/><circle cx="-15" cy="-1" r="4.5" fill="#f0a500" stroke="#c98900"/></g>
+            </g>
+            <!-- el cebo ya está en el nido -->
+            <g>
+              <animate attributeName="opacity" values="0;1" keyTimes="0;.92" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <circle cx="234" cy="150" r="3" fill="#f0a500"/>
+              <text class="f-sub" x="234" y="138" text-anchor="middle" style="fill:#1a5632;font-weight:700">¡al nido!</text>
             </g>
             <text class="f-label" x="300" y="214" text-anchor="middle">Matar las que se ven</text>
-            <text class="f-sub" x="300" y="228" text-anchor="middle" style="fill:#c0392b;font-weight:700">no acaba con la colonia</text>
-            <text class="f-sub" x="300" y="240" text-anchor="middle">el cebo sí llega al nido</text>
+            <text class="f-sub" x="300" y="227" text-anchor="middle" style="fill:#c0392b;font-weight:700">no acaba con la colonia</text>
+            <text class="f-sub" x="300" y="239" text-anchor="middle">el cebo sí llega al nido</text>
           </svg>
           <figcaption><b>Dos plagas, dos lógicas:</b> a la cucaracha se le quita calor, humedad y comida; a la hormiga hay que llegarle al <b>nido</b>, y eso lo hace el cebo.</figcaption>
         </figure>
@@ -697,9 +873,9 @@
         <h2>Moscas y mosquitos</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fig4t">
-            <title id="fig4t">Izquierda: una mosca va de una caneca destapada a un plato de comida; la tapa de la caneca se cierra. Derecha: en un recipiente con agua las larvas de mosquito suben a respirar; una tapa cubre el recipiente y el mosquito ya no tiene dónde criar.</title>
+            <title id="fig4t">Izquierda: con la caneca destapada, una mosca va de la basura al plato y lo contamina; al tapar la caneca, el plato queda limpio. Derecha: con el recipiente de agua destapado, el mosquito baja a poner huevos y aparecen larvas; al taparlo, el mosquito ya no tiene dónde criar.</title>
 
-            <!-- MOSCAS -->
+            <!-- MOSCAS (ciclo 10 s) -->
             <rect x="6" y="8" width="188" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="100" y="28" text-anchor="middle">MOSCAS</text>
             <text class="f-sub" x="100" y="42" text-anchor="middle">de la basura a tu comida</text>
@@ -707,30 +883,37 @@
             <rect x="24" y="130" width="56" height="70" rx="6" fill="#5c6b61"/>
             <path d="M36 140 V190 M52 140 V190 M68 140 V190" stroke="#fff" stroke-opacity=".2" stroke-width="2"/>
             <g fill="#8a6a45"><ellipse cx="52" cy="130" rx="24" ry="6"/><circle cx="44" cy="124" r="5" fill="#9bbf7a"/><circle cx="60" cy="122" r="5" fill="#e9c46a"/></g>
-            <!-- tapa que se cierra -->
-            <g class="anim-push">
-              <rect x="20" y="118" width="64" height="10" rx="4" fill="#2f3b33"/>
-              <rect x="46" y="112" width="12" height="6" rx="2" fill="#2f3b33"/>
+            <!-- tapa: la caneca empieza destapada y la tapa baja después -->
+            <g class="anim-m4-lid">
+              <rect x="20" y="124" width="64" height="10" rx="4" fill="#2f3b33"/>
+              <rect x="46" y="118" width="12" height="6" rx="2" fill="#2f3b33"/>
+            </g>
+            <g>
+              <animate attributeName="opacity" values="0;1;0" keyTimes="0;.64;.94" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <text class="f-sub" x="52" y="110" text-anchor="middle" style="fill:#27ae60;font-weight:700">✓ tapada</text>
             </g>
             <!-- plato -->
             <ellipse cx="152" cy="196" rx="34" ry="8" fill="#fff" stroke="#cfc6b6" stroke-width="1.5"/>
             <ellipse cx="152" cy="192" rx="22" ry="7" fill="#e9c46a"/>
             <path d="M140 188 C146 182 158 182 164 188" fill="none" stroke="#c98900" stroke-width="2"/>
-            <!-- mosca va y viene -->
-            <path d="M60 110 C90 80 130 90 150 176" fill="none" stroke="#8a968d" stroke-width="1.2" stroke-dasharray="3 4"/>
-            <g class="anim-run" style="--d:90px;animation-duration:5s">
-              <use href="#ic-fly" x="50" y="96" width="30" height="16" style="color:#2f3b33" class="anim-flutter"/>
+            <!-- recorrido de la mosca -->
+            <path d="M52 112 C80 60 140 80 150 180" fill="none" stroke="#8a968d" stroke-width="1.2" stroke-dasharray="3 4"/>
+            <g>
+              <animateMotion path="M52 112 C80 60 140 80 150 180" dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1;0;0" keyTimes="0;.24;.40;.55;1"/>
+              <animate attributeName="opacity" values="1;0" keyTimes="0;.56" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <use href="#ic-fly" x="-15" y="-8" width="30" height="16" style="color:#2f3b33" class="anim-flutter"/>
             </g>
+            <!-- contaminación en el plato -->
             <g fill="#c0392b">
-              <circle cx="140" cy="186" r="1.8" class="anim-show" style="animation-delay:3s"/>
-              <circle cx="152" cy="184" r="1.8" class="anim-show" style="animation-delay:3.6s"/>
-              <circle cx="162" cy="188" r="1.8" class="anim-show" style="animation-delay:4.2s"/>
+              <circle cx="140" cy="186" r="1.8"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.27;.9" dur="10s" repeatCount="indefinite" calcMode="discrete"/></circle>
+              <circle cx="152" cy="184" r="1.8"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.31;.9" dur="10s" repeatCount="indefinite" calcMode="discrete"/></circle>
+              <circle cx="162" cy="188" r="1.8"><animate attributeName="opacity" values="0;1;0" keyTimes="0;.35;.9" dur="10s" repeatCount="indefinite" calcMode="discrete"/></circle>
             </g>
             <text class="f-sub" x="52" y="216" text-anchor="middle">aquí se crían</text>
             <text class="f-sub" x="152" y="216" text-anchor="middle">aquí contaminan</text>
             <text class="f-sub" x="100" y="234" text-anchor="middle" style="fill:#1a5632;font-weight:700">tapa, limpia, pon mallas</text>
 
-            <!-- MOSQUITOS -->
+            <!-- MOSQUITOS (ciclo 10 s) -->
             <rect x="206" y="8" width="188" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="300" y="28" text-anchor="middle">MOSQUITOS</text>
             <text class="f-sub" x="300" y="42" text-anchor="middle">nacen en agua quieta</text>
@@ -738,18 +921,32 @@
             <path d="M250 110 L258 200 H342 L350 110 Z" fill="#fff" stroke="#8a968d" stroke-width="2"/>
             <path d="M254 130 L261 196 H339 L346 130 Z" fill="#9fd3e8"/>
             <path d="M254 130 H346" stroke="#3a9cc4" stroke-width="2"/>
-            <!-- larvas que suben a respirar -->
+            <!-- larvas: aparecen cuando el mosquito puso huevos y suben a respirar -->
             <g stroke="#2f3b33" stroke-width="3" stroke-linecap="round" fill="none">
-              <path d="M274 150 q4 8 0 16 q-4 8 0 16" class="anim-dip" style="--d:-16px"/>
-              <path d="M300 156 q4 8 0 16 q-4 8 0 16" class="anim-dip" style="--d:-20px;animation-delay:1s"/>
-              <path d="M326 150 q4 8 0 16 q-4 8 0 16" class="anim-dip" style="--d:-14px;animation-delay:2s"/>
+              <path d="M274 150 q4 8 0 16 q-4 8 0 16" class="anim-m4-larva"/>
+              <path d="M300 156 q4 8 0 16 q-4 8 0 16" class="anim-m4-larva" style="animation-delay:.3s"/>
+              <path d="M326 150 q4 8 0 16 q-4 8 0 16" class="anim-m4-larva" style="animation-delay:.6s"/>
             </g>
             <!-- tapa -->
-            <g class="anim-push" style="animation-duration:4s">
+            <g class="anim-m4-lid">
               <rect x="244" y="98" width="112" height="12" rx="5" fill="#2f3b33"/>
             </g>
-            <!-- mosquito adulto -->
-            <use href="#ic-mosq" x="330" y="56" width="40" height="22" style="color:#2f3b33" class="anim-flutter"/>
+            <!-- mosquito 1: baja al agua a poner huevos y se va -->
+            <g>
+              <animateMotion path="M372 56 C340 60 310 92 300 124" dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1;0;0" keyTimes="0;.22;.40;.52;1"/>
+              <animate attributeName="opacity" values="1;0" keyTimes="0;.53" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <g transform="scale(-1,1)"><use href="#ic-mosq" x="-18" y="-10" width="36" height="20" style="color:#2f3b33" class="anim-flutter"/></g>
+            </g>
+            <!-- mosquito 2: vuelve, encuentra la tapa y se va -->
+            <g>
+              <animateMotion path="M372 56 C340 60 314 76 302 90" dur="10s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1;0;0" keyTimes="0;.68;.80;.84;.96;1"/>
+              <animate attributeName="opacity" values="0;1;0" keyTimes="0;.68;.97" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <g transform="scale(-1,1)"><use href="#ic-mosq" x="-18" y="-10" width="36" height="20" style="color:#2f3b33" class="anim-flutter"/></g>
+            </g>
+            <g>
+              <animate attributeName="opacity" values="0;1;0" keyTimes="0;.80;.96" dur="10s" repeatCount="indefinite" calcMode="discrete"/>
+              <text class="f-sub" x="266" y="84" text-anchor="middle" style="fill:#27ae60;font-weight:700">✓ sin criadero</text>
+            </g>
             <text class="f-sub" x="300" y="216" text-anchor="middle">larvas en el agua</text>
             <text class="f-sub" x="300" y="234" text-anchor="middle" style="fill:#1a5632;font-weight:700">voltea, tapa, lava, bota</text>
           </svg>
@@ -789,18 +986,18 @@
         <h2>Roedores: ratas y ratones</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 262" role="img" aria-labelledby="fig5t">
-            <title id="fig5t">Corte de un edificio: la rata de tejados en el techo, el ratón en un mueble de la cocina y la rata noruega en la alcantarilla. Junto a la pared aparecen las señales: excrementos, roeduras y manchas de grasa. En el piso, una estación de cebo.</title>
+            <title id="fig5t">Corte de un edificio: la rata de tejados corre por el entretecho, el ratón se asoma en un mueble de la cocina y la rata noruega recorre la alcantarilla. Junto a la pared van apareciendo las señales: roeduras, excrementos y mancha de grasa. En el piso, una estación de cebo.</title>
             <!-- edificio -->
             <path d="M40 70 L200 14 L360 70 Z" fill="#8a968d"/>
             <rect x="52" y="70" width="296" height="130" fill="#f6f1e8" stroke="#cfc6b6" stroke-width="1.5"/>
             <path d="M52 134 H348" stroke="#cfc6b6" stroke-width="2"/>
-            <!-- alcantarilla -->
+            <!-- suelo y alcantarilla -->
             <rect x="0" y="200" width="400" height="62" fill="#efe9dc"/>
-            <rect x="52" y="214" width="296" height="34" rx="6" fill="#5c6b61"/>
-            <path d="M60 231 H340" stroke="#3a9cc4" stroke-width="4" stroke-dasharray="10 8" class="anim-flow"/>
+            <rect x="52" y="206" width="296" height="40" rx="6" fill="#5c6b61"/>
+            <path d="M60 226 H340" stroke="#3a9cc4" stroke-width="4" stroke-dasharray="10 8" class="anim-flow"/>
 
             <!-- rata de tejados -->
-            <use href="#ic-rat" x="214" y="40" width="54" height="30" style="color:#4a4a4a;--d:40px" class="anim-run" />
+            <use href="#ic-rat" x="214" y="40" width="54" height="30" style="color:#4a4a4a;--d:40px;animation-duration:10s" class="anim-run"/>
             <text class="f-label" x="10" y="30">Rata de tejados</text>
             <text class="f-sub" x="10" y="44">delgada, trepa alto</text>
             <path d="M96 40 C140 36 180 44 214 56" fill="none" stroke="#8a968d" stroke-width="1.2" stroke-dasharray="3 3"/>
@@ -808,28 +1005,27 @@
             <!-- cocina y ratón -->
             <rect x="70" y="100" width="60" height="34" fill="#cfc6b6"/>
             <rect x="74" y="104" width="24" height="26" fill="#b8ad99"/><rect x="102" y="104" width="24" height="26" fill="#b8ad99"/>
-            <use href="#ic-rat" x="84" y="118" width="28" height="16" style="color:#6b6b6b" class="anim-show"/>
+            <use href="#ic-rat" x="84" y="118" width="28" height="16" style="color:#6b6b6b;animation-duration:10s;animation-delay:1s" class="anim-show"/>
             <text class="f-label" x="140" y="110">Ratón</text>
             <text class="f-sub" x="140" y="123">pequeño, vive en muebles y bodegas</text>
 
-            <!-- rata noruega -->
-            <use href="#ic-rat" x="100" y="218" width="60" height="32" style="color:#4a4a4a;--d:120px;animation-duration:8s" class="anim-run"/>
-            <text class="f-label" x="200" y="226" text-anchor="middle" style="fill:#fff">Rata noruega</text>
-            <text class="f-sub" x="200" y="240" text-anchor="middle" style="fill:#dbe9f0">robusta, excava, vive en alcantarillas</text>
+            <!-- rata noruega en la alcantarilla (la etiqueta va abajo, fuera del tubo) -->
+            <use href="#ic-rat" x="64" y="212" width="56" height="30" style="color:#a39a8c;--d:200px;animation-duration:10s" class="anim-run"/>
+            <text class="f-sub" x="200" y="257" text-anchor="middle"><tspan font-weight="700" fill="#2f3b33">Rata noruega:</tspan> robusta, excava, vive en alcantarillas</text>
 
-            <!-- señales junto a la pared -->
-            <g>
-              <path d="M330 140 V200" stroke="#2f3b33" stroke-opacity=".25" stroke-width="10" class="anim-show" style="animation-delay:1s"/>
-              <text class="f-sub anim-show" x="322" y="150" text-anchor="end" style="animation-delay:1s;fill:#2f3b33;font-weight:700">mancha de grasa</text>
-              <g fill="#2f3b33" class="anim-show" style="animation-delay:2.5s">
-                <ellipse cx="300" cy="194" rx="3" ry="1.6"/><ellipse cx="308" cy="196" rx="3" ry="1.6"/><ellipse cx="316" cy="193" rx="3" ry="1.6"/>
-              </g>
-              <text class="f-sub anim-show" x="296" y="186" text-anchor="end" style="animation-delay:2.5s;fill:#2f3b33;font-weight:700">excrementos</text>
-              <g class="anim-show" style="animation-delay:4s">
-                <rect x="236" y="160" width="40" height="30" rx="3" fill="#e3c592" stroke="#c8a56d"/>
-                <path d="M236 172 L244 166 L250 174 L258 166 L264 174 L270 166 L276 172" fill="none" stroke="#8a6a45" stroke-width="1.5"/>
-                <text class="f-sub" x="256" y="156" text-anchor="middle" style="fill:#2f3b33;font-weight:700">roeduras</text>
-              </g>
+            <!-- señales junto a la pared: aparecen en orden y se quedan -->
+            <g class="anim-m5-s1">
+              <rect x="176" y="164" width="40" height="30" rx="3" fill="#e3c592" stroke="#c8a56d"/>
+              <path d="M176 176 L184 170 L190 178 L198 170 L204 178 L210 170 L216 176" fill="none" stroke="#8a6a45" stroke-width="1.5"/>
+              <text class="f-sub" x="196" y="158" text-anchor="middle" style="fill:#2f3b33;font-weight:700">roeduras</text>
+            </g>
+            <g class="anim-m5-s2">
+              <g fill="#2f3b33"><ellipse cx="240" cy="194" rx="3" ry="1.6"/><ellipse cx="250" cy="196" rx="3" ry="1.6"/><ellipse cx="260" cy="193" rx="3" ry="1.6"/></g>
+              <text class="f-sub" x="252" y="184" text-anchor="middle" style="fill:#2f3b33;font-weight:700">excrementos</text>
+            </g>
+            <g class="anim-m5-s3">
+              <path d="M339 142 V198" stroke="#2f3b33" stroke-opacity=".25" stroke-width="9"/>
+              <text class="f-sub" x="331" y="152" text-anchor="end" style="fill:#2f3b33;font-weight:700">mancha de grasa</text>
             </g>
             <!-- estación de cebo -->
             <rect x="60" y="182" width="48" height="18" rx="4" fill="#1a5632"/>
@@ -873,9 +1069,9 @@
         <h2>Pulgas, chinches y termitas</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fig6t">
-            <title id="fig6t">Tres escenas: una pulga salta desde una mascota a la alfombra; una chinche sale de la costura de un colchón y aparecen manchas oscuras; un túnel de barro de termitas sube por la pared hasta una viga de madera.</title>
+            <title id="fig6t">Tres escenas: una pulga salta desde la mascota y cae en la alfombra, donde van quedando huevos; una chinche sale de la costura del colchón y deja manchas oscuras; un túnel de barro de termitas sube por la pared hasta la viga de madera, que queda hueca, y en el piso quedan alas sueltas.</title>
 
-            <!-- PULGAS -->
+            <!-- PULGAS (ciclo 10 s) -->
             <rect x="6" y="8" width="124" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="68" y="28" text-anchor="middle">PULGAS</text>
             <text class="f-sub" x="68" y="42" text-anchor="middle">saltan y pican</text>
@@ -889,20 +1085,20 @@
             <!-- alfombra -->
             <rect x="14" y="178" width="108" height="14" rx="4" fill="#c9a0d8"/>
             <path d="M14 185 H122" stroke="#fff" stroke-opacity=".4" stroke-dasharray="4 4"/>
-            <!-- pulga que salta -->
-            <g class="anim-hop" style="--hx:30px;--hx2:52px">
-              <ellipse cx="56" cy="128" rx="5" ry="3.5" fill="#4a2e14"/>
-              <path d="M52 131 L48 136 M58 131 L60 137 M60 128 L66 126" stroke="#4a2e14" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- pulga: salta del lomo a la alfombra -->
+            <g class="anim-m6-hop">
+              <ellipse cx="56" cy="131" rx="5" ry="3.5" fill="#4a2e14"/>
+              <path d="M52 134 L48 139 M58 134 L60 140 M60 131 L66 129" stroke="#4a2e14" stroke-width="1.5" stroke-linecap="round"/>
             </g>
-            <!-- huevos y larvas en la alfombra -->
+            <!-- huevos que quedan en la alfombra -->
             <g fill="#f6efdc" stroke="#c9b48a" stroke-width=".8">
-              <circle cx="70" cy="184" r="2" class="anim-show"/><circle cx="90" cy="186" r="2" class="anim-show" style="animation-delay:1.5s"/><circle cx="108" cy="184" r="2" class="anim-show" style="animation-delay:3s"/>
+              <circle cx="104" cy="184" r="2" class="anim-m6-egg1"/><circle cx="92" cy="187" r="2" class="anim-m6-egg2"/><circle cx="78" cy="184" r="2" class="anim-m6-egg3"/>
             </g>
             <text class="f-sub" x="68" y="210" text-anchor="middle">huevos y larvas quedan</text>
             <text class="f-sub" x="68" y="223" text-anchor="middle">en alfombras y camas</text>
             <text class="f-sub" x="68" y="237" text-anchor="middle" style="fill:#1a5632;font-weight:700">tratar adulto y criadero</text>
 
-            <!-- CHINCHES -->
+            <!-- CHINCHES (ciclo 10 s) -->
             <rect x="138" y="8" width="124" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="200" y="28" text-anchor="middle">CHINCHES</text>
             <text class="f-sub" x="200" y="42" text-anchor="middle">junto a la cama</text>
@@ -910,38 +1106,39 @@
             <rect x="150" y="110" width="100" height="56" rx="10" fill="#f6f1e8" stroke="#cfc6b6" stroke-width="1.5"/>
             <path d="M150 138 H250" stroke="#cfc6b6" stroke-width="1.5" stroke-dasharray="3 3"/>
             <rect x="150" y="166" width="100" height="10" rx="3" fill="#b08a5a"/>
-            <!-- chinche saliendo de la costura -->
-            <use href="#ic-bug" x="176" y="128" width="26" height="14" style="color:#7a2e1a;--d:30px;animation-duration:5s" class="anim-run"/>
-            <!-- manchas oscuras -->
+            <!-- chinche que sale de la costura y vuelve a esconderse -->
+            <use href="#ic-bug" x="156" y="131" width="26" height="14" style="color:#7a2e1a" class="anim-m6-bug"/>
+            <!-- manchas oscuras que va dejando -->
             <g fill="#4a2e14">
-              <circle cx="166" cy="120" r="1.6" class="anim-show" style="animation-delay:1s"/><circle cx="172" cy="150" r="1.6" class="anim-show" style="animation-delay:2s"/>
-              <circle cx="232" cy="118" r="1.6" class="anim-show" style="animation-delay:3s"/><circle cx="240" cy="152" r="1.6" class="anim-show" style="animation-delay:4s"/>
+              <circle cx="168" cy="121" r="1.6" class="anim-m6-spot1"/><circle cx="178" cy="150" r="1.6" class="anim-m6-spot1"/>
+              <circle cx="196" cy="118" r="1.6" class="anim-m6-spot2"/><circle cx="206" cy="152" r="1.6" class="anim-m6-spot2"/>
+              <circle cx="232" cy="120" r="1.6" class="anim-m6-spot3"/><circle cx="240" cy="152" r="1.6" class="anim-m6-spot3"/>
             </g>
-            <!-- huevos -->
+            <!-- huevos en la costura -->
             <g fill="#f6efdc" stroke="#c9b48a" stroke-width=".8"><ellipse cx="156" cy="138" rx="1.6" ry="2.4"/><ellipse cx="160" cy="139" rx="1.6" ry="2.4"/><ellipse cx="244" cy="138" rx="1.6" ry="2.4"/></g>
             <text class="f-sub" x="200" y="196" text-anchor="middle">costuras, cabecero,</text>
             <text class="f-sub" x="200" y="209" text-anchor="middle">grietas de muebles</text>
             <text class="f-sub" x="200" y="226" text-anchor="middle" style="fill:#c0392b;font-weight:700">los huevos sobreviven:</text>
             <text class="f-sub" x="200" y="239" text-anchor="middle" style="fill:#c0392b;font-weight:700">hay que volver</text>
 
-            <!-- TERMITAS -->
+            <!-- TERMITAS (ciclo 10 s) -->
             <rect x="270" y="8" width="124" height="234" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="332" y="28" text-anchor="middle">TERMITAS</text>
             <text class="f-sub" x="332" y="42" text-anchor="middle">comen madera</text>
-            <!-- pared y viga -->
+            <!-- viga, pared y piso -->
             <rect x="282" y="56" width="100" height="14" rx="3" fill="#c89660"/>
             <path d="M292 63 H372" stroke="#8a5a2f" stroke-width="1.2" stroke-dasharray="6 4"/>
             <rect x="282" y="70" width="100" height="112" fill="#e8e3d6"/>
             <rect x="282" y="182" width="100" height="14" fill="#9a8a70"/>
-            <!-- túnel de barro que sube -->
-            <path d="M330 182 C326 150 338 120 332 70" fill="none" stroke="#8a6a45" stroke-width="7" stroke-linecap="round" class="anim-fillup" style="animation-duration:6s"/>
-            <!-- madera hueca -->
-            <g fill="#5a3a1e" fill-opacity=".5" class="anim-show" style="animation-delay:3s">
-              <rect x="320" y="58" width="30" height="10" rx="2"/>
+            <!-- túnel de barro que sube desde el piso -->
+            <path d="M330 182 C326 150 338 120 332 70" fill="none" stroke="#8a6a45" stroke-width="7" stroke-linecap="round" class="anim-fillup" style="animation-duration:10s"/>
+            <!-- madera hueca cuando el túnel llega a la viga -->
+            <g fill="#5a3a1e" fill-opacity=".5" class="anim-m6-wood">
+              <rect x="318" y="58" width="30" height="10" rx="2"/>
             </g>
-            <!-- alas sueltas -->
-            <g fill="#dbe9f0" stroke="#8a968d" stroke-width=".8" class="anim-show" style="animation-delay:1.5s">
-              <path d="M292 176 C298 168 306 168 310 176 Z"/><path d="M300 180 C306 172 314 172 318 180 Z"/>
+            <!-- alas sueltas en el piso -->
+            <g fill="#dbe9f0" stroke="#8a968d" stroke-width=".8" class="anim-m6-wings">
+              <path d="M292 192 C298 184 306 184 310 192 Z"/><path d="M300 195 C306 187 314 187 318 195 Z"/>
             </g>
             <text class="f-sub" x="332" y="210" text-anchor="middle">túneles de barro, madera</text>
             <text class="f-sub" x="332" y="223" text-anchor="middle">hueca, alas sueltas</text>
@@ -987,66 +1184,57 @@
         <h2>Inspección, monitoreo y puntos de control</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fig7t">
-            <title id="fig7t">Plano de un establecimiento con puntos de control numerados en cocina, bodega, cuarto de residuos y perímetro. Los puntos se encienden uno a uno al revisarlos. A la derecha, un semáforo de riesgo: bajo, moderado y alto.</title>
+            <title id="fig7t">Plano de un establecimiento con seis puntos de control numerados en cocina, bodega, cuarto técnico y residuos. Una lupa recorre el plano en orden; cada punto revisado se marca y los hallazgos aparecen. A la derecha, el nivel de riesgo sube de bajo a moderado y a alto según lo que se encuentra.</title>
 
-            <!-- plano -->
+            <!-- plano: muros con vanos por donde pasa el recorrido -->
             <rect x="10" y="30" width="260" height="190" rx="6" fill="#fff" stroke="#8a968d" stroke-width="2"/>
-            <path d="M10 120 H140 M140 30 V220 M140 120 H270 M200 120 V220" stroke="#8a968d" stroke-width="2"/>
+            <path d="M10 120 H22 M38 120 H242 M258 120 H270 M140 30 V52 M140 68 V192 M140 208 V220 M200 120 V192 M200 208 V220" stroke="#8a968d" stroke-width="2"/>
             <text class="f-sub" x="75" y="48" text-anchor="middle" style="font-weight:700">COCINA</text>
             <text class="f-sub" x="205" y="48" text-anchor="middle" style="font-weight:700">BODEGA</text>
             <text class="f-sub" x="75" y="138" text-anchor="middle" style="font-weight:700">RESIDUOS</text>
             <text class="f-sub" x="170" y="138" text-anchor="middle" style="font-weight:700">BAÑOS</text>
-            <text class="f-sub" x="235" y="138" text-anchor="middle" style="font-weight:700">TÉCNICO</text>
-            <!-- puerta -->
-            <rect x="124" y="214" width="32" height="6" fill="#f0a500"/>
+            <text class="f-sub" x="226" y="138" text-anchor="middle" style="font-weight:700">TÉCNICO</text>
+            <!-- acceso exterior del cuarto de residuos -->
+            <rect x="60" y="214" width="32" height="6" fill="#f0a500"/>
             <!-- perímetro -->
             <rect x="2" y="22" width="276" height="206" rx="10" fill="none" stroke="#1a5632" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-            <!-- puntos de control -->
-            <g>
-              <circle cx="30" cy="100" r="9" fill="#1a5632"/><text class="f-num" x="30" y="103.5" text-anchor="middle" style="font-size:9px">1</text>
-              <circle cx="30" cy="100" r="9" fill="none" stroke="#f0a500" stroke-width="3" class="anim-ring" style="animation-delay:0s"/>
-              <circle cx="30" cy="100" r="9" fill="#f0a500" class="anim-step"/>
-            </g>
-            <g>
-              <circle cx="120" cy="60" r="9" fill="#1a5632"/><text class="f-num" x="120" y="63.5" text-anchor="middle" style="font-size:9px">2</text>
-              <circle cx="120" cy="60" r="9" fill="#f0a500" class="anim-step" style="animation-delay:1.3s"/>
-            </g>
-            <g>
-              <circle cx="250" cy="60" r="9" fill="#1a5632"/><text class="f-num" x="250" y="63.5" text-anchor="middle" style="font-size:9px">3</text>
-              <circle cx="250" cy="60" r="9" fill="#f0a500" class="anim-step" style="animation-delay:2.6s"/>
-            </g>
-            <g>
-              <circle cx="250" cy="200" r="9" fill="#1a5632"/><text class="f-num" x="250" y="203.5" text-anchor="middle" style="font-size:9px">4</text>
-              <circle cx="250" cy="200" r="9" fill="#f0a500" class="anim-step" style="animation-delay:3.9s"/>
-            </g>
-            <g>
-              <circle cx="120" cy="200" r="9" fill="#1a5632"/><text class="f-num" x="120" y="203.5" text-anchor="middle" style="font-size:9px">5</text>
-              <circle cx="120" cy="200" r="9" fill="#f0a500" class="anim-step" style="animation-delay:5.2s"/>
-            </g>
-            <g>
-              <circle cx="30" cy="200" r="9" fill="#1a5632"/><text class="f-num" x="30" y="203.5" text-anchor="middle" style="font-size:9px">6</text>
-              <circle cx="30" cy="200" r="9" fill="#f0a500" class="anim-step" style="animation-delay:6.5s"/>
-            </g>
             <!-- recorrido -->
             <path d="M30 100 L120 60 L250 60 L250 200 L120 200 L30 200 Z" fill="none" stroke="#1a5632" stroke-width="1.5" stroke-dasharray="4 6" class="anim-flow"/>
-            <!-- hallazgos -->
-            <use href="#ic-roach" x="48" y="72" width="22" height="12" style="color:#8a4a22;animation-delay:.5s" class="anim-show"/>
-            <g fill="#2f3b33" class="anim-show" style="animation-delay:4.5s"><ellipse cx="216" cy="196" rx="2.5" ry="1.3"/><ellipse cx="222" cy="198" rx="2.5" ry="1.3"/></g>
 
-            <!-- semáforo de riesgo -->
+            <!-- puntos de control: se marcan al revisarlos y quedan marcados -->
+            <g>
+              <circle cx="30" cy="100" r="9" fill="#1a5632"/><circle cx="30" cy="100" r="9" fill="#f0a500" class="anim-m7-p1"/><text class="f-num" x="30" y="103.5" text-anchor="middle" style="font-size:9px">1</text>
+              <circle cx="120" cy="60" r="9" fill="#1a5632"/><circle cx="120" cy="60" r="9" fill="#f0a500" class="anim-m7-p2"/><text class="f-num" x="120" y="63.5" text-anchor="middle" style="font-size:9px">2</text>
+              <circle cx="250" cy="60" r="9" fill="#1a5632"/><circle cx="250" cy="60" r="9" fill="#f0a500" class="anim-m7-p3"/><text class="f-num" x="250" y="63.5" text-anchor="middle" style="font-size:9px">3</text>
+              <circle cx="250" cy="200" r="9" fill="#1a5632"/><circle cx="250" cy="200" r="9" fill="#f0a500" class="anim-m7-p4"/><text class="f-num" x="250" y="203.5" text-anchor="middle" style="font-size:9px">4</text>
+              <circle cx="120" cy="200" r="9" fill="#1a5632"/><circle cx="120" cy="200" r="9" fill="#f0a500" class="anim-m7-p5"/><text class="f-num" x="120" y="203.5" text-anchor="middle" style="font-size:9px">5</text>
+              <circle cx="30" cy="200" r="9" fill="#1a5632"/><circle cx="30" cy="200" r="9" fill="#f0a500" class="anim-m7-p6"/><text class="f-num" x="30" y="203.5" text-anchor="middle" style="font-size:9px">6</text>
+            </g>
+            <!-- hallazgos que aparecen al revisar -->
+            <use href="#ic-roach" x="46" y="74" width="22" height="12" style="color:#8a4a22" class="anim-m7-f1"/>
+            <g fill="#2f3b33" class="anim-m7-f2"><ellipse cx="226" cy="186" rx="2.5" ry="1.3"/><ellipse cx="232" cy="189" rx="2.5" ry="1.3"/><ellipse cx="238" cy="185" rx="2.5" ry="1.3"/></g>
+            <!-- la inspección recorre los puntos en orden y se detiene en cada uno -->
+            <g>
+              <animateMotion path="M30 100 L120 60 L250 60 L250 200 L120 200 L30 200 Z" dur="10s" repeatCount="indefinite" calcMode="linear"
+                keyPoints="0;0;.1431;.1431;.3319;.3319;.5352;.5352;.7241;.7241;.8548;.8548;1"
+                keyTimes="0;.05;.15;.2;.332;.382;.525;.575;.707;.757;.848;.898;1"/>
+              <circle r="12" fill="none" stroke="#f0a500" stroke-width="3" class="anim-ring"/>
+              <text x="12" y="-2" text-anchor="middle" font-size="14">🔍</text>
+            </g>
+
+            <!-- nivel de riesgo: sube con los hallazgos -->
             <rect x="284" y="30" width="108" height="190" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="338" y="50" text-anchor="middle">NIVEL DE RIESGO</text>
             <g>
-              <circle cx="306" cy="84" r="12" fill="#27ae60"/>
+              <circle cx="306" cy="84" r="12" fill="#27ae60"/><circle cx="306" cy="84" r="16" fill="none" stroke="#2f3b33" stroke-width="2.5" class="anim-m7-r1"/>
               <text class="f-label" x="324" y="82">Bajo</text><text class="f-sub" x="324" y="94">sin actividad</text>
             </g>
             <g>
-              <circle cx="306" cy="134" r="12" fill="#f0a500"/>
+              <circle cx="306" cy="134" r="12" fill="#f0a500"/><circle cx="306" cy="134" r="16" fill="none" stroke="#2f3b33" stroke-width="2.5" class="anim-m7-r2"/>
               <text class="f-label" x="324" y="132">Moderado</text><text class="f-sub" x="324" y="144">algunas señales</text>
             </g>
             <g>
-              <circle cx="306" cy="184" r="12" fill="#c0392b" class="anim-pop"/>
+              <circle cx="306" cy="184" r="12" fill="#c0392b"/><circle cx="306" cy="184" r="16" fill="none" stroke="#2f3b33" stroke-width="2.5" class="anim-m7-r3"/>
               <text class="f-label" x="324" y="182">Alto</text><text class="f-sub" x="324" y="194">focos, actividad</text><text class="f-sub" x="324" y="205">frecuente</text>
             </g>
             <text class="f-sub" x="200" y="242" text-anchor="middle" style="fill:#1a5632;font-weight:700">📝 Cada punto tiene número, plano y registro de cada visita</text>
@@ -1089,7 +1277,7 @@
         <h2>Métodos de control y seguridad</h2>
         <figure class="figure">
           <svg viewBox="0 0 400 250" role="img" aria-labelledby="fig8t">
-            <title id="fig8t">Cinco fichas con los métodos: físico, mecánico, químico, biológico y cultural. Debajo, un técnico se pone el equipo de protección pieza por pieza y una señal indica no entrar hasta que pase el tiempo de reingreso.</title>
+            <title id="fig8t">Cinco fichas con los métodos: físico, mecánico, químico, biológico y cultural. Debajo, un técnico se pone el equipo de protección pieza por pieza hasta quedar completo, y una señal de no entrar con un reloj indica que hay que esperar el tiempo de reingreso.</title>
 
             <!-- fichas de métodos -->
             <g>
@@ -1127,40 +1315,49 @@
               <text class="f-sub" x="356" y="70" text-anchor="middle" style="font-weight:700;fill:#1a5632">CULTURAL</text>
             </g>
 
-            <!-- técnico con EPP -->
+            <!-- técnico: el EPP se va poniendo pieza por pieza y se queda puesto (ciclo 10 s) -->
             <rect x="8" y="94" width="230" height="148" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="123" y="114" text-anchor="middle">PRIMERO EL EPP</text>
+            <path d="M46 180 L37 202 M94 180 L103 202" stroke="#2a7a48" stroke-width="10" stroke-linecap="round"/>
             <circle cx="70" cy="150" r="18" fill="#f1c9a5"/>
             <rect x="46" y="170" width="48" height="60" rx="10" fill="#2a7a48"/>
-            <!-- piezas que aparecen -->
-            <g class="anim-step" style="animation-duration:8s;animation-delay:0s">
+            <g class="anim-m8-e1">
               <path d="M54 146 H86" stroke="#2f3b33" stroke-width="2"/>
               <rect x="54" y="140" width="13" height="10" rx="3" fill="#9fd3e8" stroke="#2f3b33"/><rect x="73" y="140" width="13" height="10" rx="3" fill="#9fd3e8" stroke="#2f3b33"/>
             </g>
-            <g class="anim-step" style="animation-duration:8s;animation-delay:2s">
+            <g class="anim-m8-e2">
               <path d="M56 158 Q70 170 84 158 L84 164 Q70 174 56 164 Z" fill="#fff" stroke="#8a968d"/>
             </g>
-            <g class="anim-step" style="animation-duration:8s;animation-delay:4s">
+            <g class="anim-m8-e3">
               <rect x="30" y="200" width="14" height="22" rx="5" fill="#f0a500"/><rect x="96" y="200" width="14" height="22" rx="5" fill="#f0a500"/>
             </g>
-            <g class="anim-step" style="animation-duration:8s;animation-delay:6s">
+            <g class="anim-m8-e4">
               <path d="M52 132 Q70 116 88 132 L90 138 H50 Z" fill="#f0a500"/>
             </g>
             <text class="f-sub" x="130" y="150">gafas</text>
             <text class="f-sub" x="130" y="168">mascarilla</text>
             <text class="f-sub" x="130" y="186">guantes</text>
             <text class="f-sub" x="130" y="204">ropa y casco</text>
+            <g style="font-size:11px;font-weight:700;fill:#27ae60">
+              <text x="202" y="150" class="anim-m8-e1">✓</text>
+              <text x="202" y="168" class="anim-m8-e2">✓</text>
+              <text x="202" y="186" class="anim-m8-e3">✓</text>
+              <text x="202" y="204" class="anim-m8-e4">✓</text>
+            </g>
             <text class="f-sub" x="130" y="228" style="fill:#1a5632;font-weight:700">y producto registrado</text>
 
-            <!-- señal de no reingreso -->
+            <!-- señal de no reingreso con reloj -->
             <rect x="250" y="94" width="142" height="148" rx="12" fill="#fff" stroke="#e6ece7"/>
             <text class="f-title" x="321" y="114" text-anchor="middle" style="fill:#c0392b">NO ENTRAR</text>
             <circle cx="321" cy="166" r="34" fill="#fdecea" stroke="#c0392b" stroke-width="4"/>
-            <path d="M297 142 L345 190" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
-            <g class="anim-spin" style="animation-duration:8s;transform-origin:321px 166px">
+            <g stroke="#c0392b" stroke-opacity=".5" stroke-width="2" stroke-linecap="round">
+              <path d="M321 138 V143 M321 189 V194 M293 166 H298 M344 166 H349"/>
+            </g>
+            <g class="anim-spin" style="animation-duration:10s;transform-box:view-box;transform-origin:321px 166px">
               <path d="M321 166 L321 146" stroke="#2f3b33" stroke-width="3" stroke-linecap="round"/>
             </g>
             <circle cx="321" cy="166" r="3" fill="#2f3b33"/>
+            <path d="M297 142 L345 190" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
             <text class="f-sub" x="321" y="216" text-anchor="middle">hasta cumplir el</text>
             <text class="f-sub" x="321" y="229" text-anchor="middle" style="font-weight:700;fill:#c0392b">tiempo de reingreso</text>
           </svg>
@@ -1207,12 +1404,12 @@
         <span class="slide-number">Módulo 9 de 9</span>
         <h2>Responsabilidades y errores frecuentes</h2>
         <figure class="figure">
-          <svg viewBox="0 0 400 230" role="img" aria-labelledby="fig9t">
-            <title id="fig9t">Tres engranajes conectados que giran juntos: empresa de control, cliente o administrador, y trabajadores. Si uno se detiene, los demás también.</title>
+          <svg viewBox="0 0 400 240" role="img" aria-labelledby="fig9t">
+            <title id="fig9t">Tres engranajes conectados giran juntos: empresa de control, cliente o administrador, y trabajadores. Cuando el del cliente se detiene, los otros dos también se detienen y aparece el aviso.</title>
             <text class="f-title" x="200" y="24" text-anchor="middle">EL CONTROL FUNCIONA SI LOS TRES GIRAN</text>
 
             <!-- engranaje 1: empresa -->
-            <g class="anim-spin" style="animation-duration:12s;transform-origin:90px 120px">
+            <g class="anim-m9-spin">
               <circle cx="90" cy="120" r="48" fill="#1a5632"/>
               <g fill="#1a5632">
                 <rect x="84" y="62" width="12" height="16" rx="2"/><rect x="84" y="162" width="12" height="16" rx="2"/>
@@ -1225,10 +1422,10 @@
             <text x="90" y="104" text-anchor="middle" font-size="20">🧑‍🔧</text>
             <text class="f-label" x="90" y="142" text-anchor="middle" style="fill:#fff">Empresa</text>
 
-            <!-- engranaje 2: cliente -->
-            <g class="anim-spin" style="animation-duration:12s;animation-direction:reverse;transform-origin:200px 120px">
+            <!-- engranaje 2: cliente (dientes desfasados medio paso para engranar) -->
+            <g class="anim-m9-rev">
               <circle cx="200" cy="120" r="48" fill="#f0a500"/>
-              <g fill="#f0a500">
+              <g fill="#f0a500" transform="rotate(22.5 200 120)">
                 <rect x="194" y="62" width="12" height="16" rx="2"/><rect x="194" y="162" width="12" height="16" rx="2"/>
                 <rect x="142" y="114" width="16" height="12" rx="2"/><rect x="242" y="114" width="16" height="12" rx="2"/>
                 <rect x="194" y="62" width="12" height="16" rx="2" transform="rotate(45 200 120)"/><rect x="194" y="162" width="12" height="16" rx="2" transform="rotate(45 200 120)"/>
@@ -1240,7 +1437,7 @@
             <text class="f-label" x="200" y="142" text-anchor="middle" style="fill:#fff">Cliente</text>
 
             <!-- engranaje 3: trabajadores -->
-            <g class="anim-spin" style="animation-duration:12s;transform-origin:310px 120px">
+            <g class="anim-m9-spin">
               <circle cx="310" cy="120" r="48" fill="#2a7a48"/>
               <g fill="#2a7a48">
                 <rect x="304" y="62" width="12" height="16" rx="2"/><rect x="304" y="162" width="12" height="16" rx="2"/>
@@ -1253,12 +1450,19 @@
             <text x="310" y="104" text-anchor="middle" font-size="20">👥</text>
             <text class="f-label" x="310" y="142" text-anchor="middle" style="fill:#fff">Usuarios</text>
 
-            <text class="f-sub" x="90" y="200" text-anchor="middle">inspecciona, trata,</text>
-            <text class="f-sub" x="90" y="213" text-anchor="middle">monitorea</text>
-            <text class="f-sub" x="200" y="200" text-anchor="middle">corrige fallas,</text>
-            <text class="f-sub" x="200" y="213" text-anchor="middle">cumple lo recomendado</text>
-            <text class="f-sub" x="310" y="200" text-anchor="middle">orden, reporta,</text>
-            <text class="f-sub" x="310" y="213" text-anchor="middle">no toca trampas</text>
+            <!-- cuando uno se detiene, se detienen todos -->
+            <g class="anim-m9-stop">
+              <circle cx="240" cy="82" r="12" fill="#c0392b" stroke="#fff" stroke-width="2"/>
+              <text x="240" y="87" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">!</text>
+            </g>
+            <text class="f-sub anim-m9-stop" x="200" y="195" text-anchor="middle" style="fill:#c0392b;font-weight:700;font-size:10.5px">Si uno se detiene, se detienen todos</text>
+
+            <text class="f-sub" x="90" y="214" text-anchor="middle">inspecciona, trata,</text>
+            <text class="f-sub" x="90" y="227" text-anchor="middle">monitorea</text>
+            <text class="f-sub" x="200" y="214" text-anchor="middle">corrige fallas,</text>
+            <text class="f-sub" x="200" y="227" text-anchor="middle">cumple lo recomendado</text>
+            <text class="f-sub" x="310" y="214" text-anchor="middle">orden, reporta,</text>
+            <text class="f-sub" x="310" y="227" text-anchor="middle">no toca trampas</text>
           </svg>
           <figcaption><b>No es trabajo de uno solo.</b> La empresa trata y recomienda, el cliente corrige y los usuarios cuidan el día a día.</figcaption>
         </figure>
@@ -1368,6 +1572,7 @@
     let quizScore = 0;
     let quizSubmitted = false;
     let userName = '';
+    const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
     const NOTIFY_EMAIL = 'informes.serviplagas@gmail.com';
     const COURSE_NAME = 'Control Integrado de Plagas Urbanas';
@@ -1571,6 +1776,13 @@
     function updateSlide() {
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
       document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+
+      // Las ilustraciones empiezan desde el principio cada vez que se abre un módulo
+      document.querySelectorAll(`[data-slide="${currentSlide}"] svg`).forEach(s => {
+        if (typeof s.setCurrentTime !== 'function') return;
+        s.setCurrentTime(0);
+        if (REDUCED_MOTION) s.pauseAnimations();
+      });
 
       const pct = currentSlide === 0 ? 0 : Math.round((currentSlide / (totalSlides - 1)) * 100);
       document.getElementById('progress').style.width = pct + '%';

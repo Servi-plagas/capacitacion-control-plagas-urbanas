@@ -32,19 +32,22 @@ repetirlo. Están escritas dentro de `index.html`, pesan pocos KB y funcionan si
 
 | Módulo | Qué muestra la animación |
 |---|---|
-| 1. ¿Qué es el control integrado? | «Solo fumigar»: la cucaracha vuelve; «control integrado»: rueda de 5 pasos que se encienden en orden |
-| 2. Alimento, agua y refugio | Tres columnas sostienen el bloque «la plaga se queda»; al tacharlas una a una, la plaga se desvanece |
-| 3. Cucarachas y hormigas | Cocina que pasa de día a noche y salen cucarachas; camino de hormigas al azúcar y cebo que vuelve al nido |
-| 4. Moscas y mosquitos | Mosca que va de la caneca al plato y tapa que se cierra; larvas que suben a respirar y tapa que cubre el agua |
-| 5. Roedores | Corte de un edificio: rata de tejados arriba, ratón en el mueble, rata noruega en la alcantarilla; señales que aparecen |
-| 6. Pulgas, chinches y termitas | Pulga que salta de la mascota a la alfombra; chinche que sale de la costura del colchón; túnel de barro que sube por la pared |
-| 7. Inspección y puntos de control | Plano con puntos de control que se encienden en orden de recorrido y semáforo de nivel de riesgo |
-| 8. Métodos y seguridad | Cinco fichas de métodos; técnico que se pone el EPP pieza por pieza; señal de no reingreso con reloj |
-| 9. Responsabilidades | Tres engranajes que giran juntos: empresa, cliente y usuarios |
+| 1. ¿Qué es el control integrado? | «Solo fumigar»: el rocío mata la cucaracha, pero al mes siguiente entra otra por la grieta (el calendario cambia de mes); «control integrado»: rueda de 5 pasos que se encienden en orden |
+| 2. Alimento, agua y refugio | Tres columnas sostienen el bloque «la plaga se queda»; se tachan una a una y quedan tachadas; sin las tres, el bloque se hunde y aparece «sin plaga» |
+| 3. Cucarachas y hormigas | Cocina que pasa de día a noche y solo de noche salen cucarachas; crías que van naciendo de la cápsula. Hormigas que siguen su camino por la grieta de la pared; una recoge el cebo y lo lleva al nido |
+| 4. Moscas y mosquitos | Caneca destapada: la mosca va de la basura al plato y lo contamina; al bajar la tapa, el plato queda limpio. Agua destapada: el mosquito baja a poner huevos y aparecen larvas; con la tapa puesta, vuelve y no tiene dónde criar |
+| 5. Roedores | Corte de un edificio: rata de tejados en el entretecho, ratón en el mueble, rata noruega en la alcantarilla; las señales (roeduras, excrementos, mancha de grasa) aparecen en orden y se quedan |
+| 6. Pulgas, chinches y termitas | Pulga que salta de la mascota y cae en la alfombra, donde quedan huevos; chinche que sale de la costura, deja manchas y vuelve a esconderse; túnel de barro que sube hasta la viga, que queda hueca |
+| 7. Inspección y puntos de control | Una lupa recorre el plano y se detiene en cada punto; los puntos revisados quedan marcados, aparecen hallazgos y el nivel de riesgo sube de bajo a moderado y a alto |
+| 8. Métodos y seguridad | Cinco fichas de métodos; técnico que se pone el EPP pieza por pieza hasta quedar completo (con lista de chequeo); señal de no reingreso con reloj |
+| 9. Responsabilidades | Tres engranajes que giran engranados: empresa, cliente y usuarios. Cuando uno se detiene, los otros dos también |
 
 Las plagas se dibujan una sola vez (`<symbol id="ic-roach">`, `ic-ant`, `ic-fly`, `ic-mosq`, `ic-rat`,
-`ic-bug`, al principio del `<body>`) y se reutilizan con `<use>`. Las animaciones son CSS (clases
-`anim-*`) y **se desactivan solas** si el dispositivo pide menos movimiento (`prefers-reduced-motion`).
+`ic-bug`, al principio del `<body>`) y se reutilizan con `<use>`. Cada figura cuenta su historia en un
+ciclo de 8 a 12 s que **empieza desde cero cada vez que se abre el módulo**. Los cambios de opacidad y
+tamaño son CSS (clases `anim-*`); lo que se mueve por un camino (hormigas, mosca, mosquito, lupa) usa
+`<animateMotion>` nativo de SVG. Si el dispositivo pide menos movimiento (`prefers-reduced-motion`),
+las animaciones se detienen y cada figura muestra un solo estado coherente.
 
 `logo.png` viene del repositorio de xilófagos. El logo del certificado va **embebido en base64**
 dentro de `index.html`, así que el PDF sale con logo incluso sin conexión.

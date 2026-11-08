@@ -1,0 +1,4 @@
+# Documentos fuente: no se publican, solo el sitio
+*.pdf
+*.docx
+.DS_Store
